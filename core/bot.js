@@ -37,6 +37,8 @@ function listenBot() {
             })
             .catch(err => console.error("[BOT MESSAGE] Failed to send message: ", err))
     })
+
+    bot.on("polling_error", (msg) => console.log(msg));
 }
 
 function sendMessage(title, detail, cb) {
