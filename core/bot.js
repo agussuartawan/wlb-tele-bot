@@ -52,6 +52,7 @@ function sendMessage(title, detail, cb) {
     read().forEach(sub => {
         const chat = `${title}\n${detail}`
         const chatId = sub.chatId
+        console.log(sub)
         bot.sendMessage(chatId, chat)
             .then(() => {
                 console.info(`[BOT MESSAGE] Message sended to ${chatId}`)
