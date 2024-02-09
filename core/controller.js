@@ -17,7 +17,7 @@ router.post("/bot/send-message-to-subscriber", async (req, res) => {
 
     await sendMessage(title, detail, (err) => {
         if (err) {
-            console.log(err)
+            console.error(err)
             res.status(500).json({
                 status: "fail",
                 message: err

@@ -52,7 +52,6 @@ async function sendMessage(title, detail, cb) {
     for (const sub of read()) {
         const chat = `${title}\n${detail}`
         const chatId = sub.chatId
-        console.log(sub)
         await bot.sendMessage(chatId, chat)
             .then(() => {
                 console.info(`[BOT MESSAGE] Message sended to ${chatId}`)
