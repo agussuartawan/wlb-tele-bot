@@ -1,10 +1,13 @@
 import {sync, read} from "./storage.js";
 import TelegramBot from "node-telegram-bot-api";
-import Agent from "socks5-http-client/lib/Agent.js"
+import * as dotenv from 'dotenv';
 
-const bot = new TelegramBot("6459366657:AAHRjFp-KlLAZE5RcnZ5JqFBeHri2Zn3KBw", {polling: true, request: {
-    agentClass: Agent
-    }})
+dotenv.config();
+
+const bot = new TelegramBot(
+    process.env.TELE_KEY,
+    { polling: true }
+)
 
 function listenBot() {
     bot.onText(/\/start/, msg => {
