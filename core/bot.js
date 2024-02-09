@@ -1,7 +1,10 @@
 import {sync, read} from "./storage.js";
 import TelegramBot from "node-telegram-bot-api";
+import Agent from "socks5-http-client/lib/Agent.js"
 
-const bot = new TelegramBot("6459366657:AAHRjFp-KlLAZE5RcnZ5JqFBeHri2Zn3KBw", {polling: true})
+const bot = new TelegramBot("6459366657:AAHRjFp-KlLAZE5RcnZ5JqFBeHri2Zn3KBw", {polling: true, request: {
+    agentClass: Agent
+    }})
 
 function listenBot() {
     bot.onText(/\/start/, msg => {
@@ -44,9 +47,9 @@ function listenBot() {
 function sendMessage(title, detail, cb) {
     const errors = []
     read().forEach(sub => {
-        const chat = `**${title}**\n${detail}`
+        const chat = `${title}\n${detail}`
         const chatId = sub.chatId
-        bot.sendMessage(chatId, chat, {parse_mode: "Markdown"})
+        bot.sendMessage(chatId, chat)
             .then(() => {
                 console.info(`[BOT MESSAGE] Message sended to ${chatId}`)
             })
