@@ -47,20 +47,20 @@ function listenBot() {
     bot.on("polling_error", (msg) => console.error(msg));
 }
 
-function sendMessage(title, detail, cb) {
+async function sendMessage(title, detail, cb) {
     const errors = []
-    read().forEach(sub => {
+    for (const sub of read()) {
         const chat = `${title}\n${detail}`
         const chatId = sub.chatId
         console.log(sub)
-        bot.sendMessage(chatId, chat)
+        await bot.sendMessage(chatId, chat)
             .then(() => {
                 console.info(`[BOT MESSAGE] Message sended to ${chatId}`)
             })
             .catch(err => {
-                errors.push(`[BOT MESSAGE] Failed send message to ${err}`)
+                errors.push(`[BOT MESSAGE] Failed send message: ${err}`)
             })
-    })
+    }
 
     if (errors.length > 0) {
         return cb && cb(errors)

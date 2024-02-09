@@ -4,7 +4,7 @@ import {sendMessage} from "./bot.js";
 const router = express.Router()
 
 // send mesage to bot
-router.post("/bot/send-message-to-subscriber", (req, res) => {
+router.post("/bot/send-message-to-subscriber", async (req, res) => {
     const title = req.body.title
     const detail = req.body.detail
     if (!title || !detail) {
@@ -15,7 +15,7 @@ router.post("/bot/send-message-to-subscriber", (req, res) => {
         return
     }
 
-    sendMessage(title, detail, (err) => {
+    await sendMessage(title, detail, (err) => {
         if (err) {
             console.log(err)
             res.status(500).json({
