@@ -40,6 +40,7 @@ function listenBot() {
 }
 
 function sendMessage(title, detail, cb) {
+    const errors = []
     read().forEach(sub => {
         const chat = `**${title}**\n${detail}`
         const chatId = sub.chatId
@@ -48,9 +49,13 @@ function sendMessage(title, detail, cb) {
                 console.info(`[BOT MESSAGE] Message sended to ${chatId}`)
             })
             .catch(err => {
-                return cb && cb(`[BOT MESSAGE] Failed send message to ${err}`)
+                errors.push(`[BOT MESSAGE] Failed send message to ${err}`)
             })
     })
+
+    if (errors.length > 0) {
+        return cb && cb(errors)
+    }
 
     return cb && cb(null)
 }
