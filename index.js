@@ -3,10 +3,12 @@ import bodyParser from "body-parser";
 import {initStorage} from "./core/storage.js";
 import router from "./core/controller.js";
 import {listenBot} from "./core/bot.js";
+import morgan from "morgan";
 
 const app = express()
 const port = 8075
 
+app.use(morgan("tiny"))
 app.use(bodyParser.json())
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
