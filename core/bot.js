@@ -44,7 +44,7 @@ function sendMessage(title, detail, cb) {
     read().forEach(sub => {
         const chat = `**${title}**\n${detail}`
         const chatId = sub.chatId
-        bot.sendMessage(chatId, chat)
+        bot.sendMessage(chatId, chat, {parse_mode: "Markdown"})
             .then(() => {
                 console.info(`[BOT MESSAGE] Message sended to ${chatId}`)
             })
